@@ -1,6 +1,6 @@
 # nut-influxdbv2
 
-This is a docker container that pulls data from a set of NUT servers and pushed to InfluxDB. Based on work of mihai-cindea [https://github.com/mihai-cindea/nut-influxdb-exporter)
+This is a docker container that pulls data from a NUT server and pushed to InfluxDB. Based on work of mihai-cindea [https://github.com/mihai-cindea/nut-influxdb-exporter)
 
 ## Changes
 Updated for InfluxDBv2. Changed outputted values.

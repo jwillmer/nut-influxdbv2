@@ -9,7 +9,6 @@ from influxdb_client.client.write_api import SYNCHRONOUS
 import json
 
 
-
 # InfluxDB details
 host = os.getenv('INFLUXDB_HOST', '127.0.0.1')
 port = os.getenv('INFLUXDB_PORT', 8086)

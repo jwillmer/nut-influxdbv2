@@ -1,7 +1,21 @@
-# nut-influxdb-exporter
+# nut-influxdbv2
 
-If you use Grafana + Unraid, make sure to checkout `Unraid System Dashboard New-1577093376607.json`. 
-While some graphs might need some tweaking for your particular setup, it's better than nothing.
+This is a docker container that pulls data from a set of NUT servers and pushed to InfluxDB. Based on work of jankeesvw [evohome-to-influxdb] (https://github.com/jankeesvw/evohome-to-influxdb)
 
-You can find the docker image here:
-https://hub.docker.com/r/maihai/nut-influxdb-exporter
+Updated for InfluxDBv2. Changed output
+
+Add multi server in future
+
+How to run
+
+$ docker run -d \
+ -e EVOHOME_APP_ID="<evohome API application id>" \
+ -e EVOHOME_USERNAME="<evohome email>" \
+ -e EVOHOME_PASSWORD="<evohome password>" \
+ -e INFLUXDB2_HOST="<INFLUXDBv2 SERVER>" \
+ -e INFLUXDB2_PORT="8086" \
+ -e INFLUXDB2_ORG="" \
+ -e INFLUXDB2_TOKEN="" \
+ -e INFLUXDB2_BUCKET="" \
+ --name "nut-influxdbv2" \
+dbsqp/nut-influxdbv2:latest

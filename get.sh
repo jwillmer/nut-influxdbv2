@@ -4,7 +4,7 @@ while :
 do
   date
   echo "Start Loop"
-  python3 nut-influxdb-exporter.py
+  python3 nut-influxdbv2-exporter.py
   RET=$?
   if [ ${RET} -ne 0 ];
   then

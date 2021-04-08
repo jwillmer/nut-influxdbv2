@@ -1,12 +1,13 @@
 # nut-influxdbv2
 
-This is a docker container that pulls data from a set of NUT servers and pushed to InfluxDB. Based on work of jankeesvw [evohome-to-influxdb] (https://github.com/jankeesvw/evohome-to-influxdb)
+This is a docker container that pulls data from a set of NUT servers and pushed to InfluxDB. Based on work of mihai-cindea [https://github.com/mihai-cindea/nut-influxdb-exporter)
 
-Updated for InfluxDBv2. Changed output
+Updated for InfluxDBv2. Changed outputted values.
 
-Add multi server in future
+#Roadmap
+Add poll of multiple NUT servers by env varable of server IP addresses
 
-How to run
+#How to run
 
 $ docker run -d \
  -e EVOHOME_APP_ID="<evohome API application id>" \

@@ -34,18 +34,6 @@ influxdb2_token=os.getenv('INFLUXDB2_TOKEN', "token")
 influxdb2_bucket=os.getenv('INFLUXDB2_BUCKET', "DEV")
 
 # hard encoded environment variables
-nut_host = "10.0.0.10"
-nut_port = "3493"
-nut_password = "secret"
-nut_username = "monuser"
-nut_hostname = "NAS"
-nut_upsname = "ups"
-debug_str = "True"
-influxdb2_host="10.0.0.10"
-influxdb2_port="8086"
-influxdb2_org="Home"
-influxdb2_token="SbfFAjZxi1v2mYno0VvVPkXXXJju8LRQ99MJ77l73FfgIMaSxuK_nVG1wpPcnMF7KAnZ4c-dMqpkSTr4F2I78w=="
-influxdb2_bucket="DEV"
 
 
 # set bebug

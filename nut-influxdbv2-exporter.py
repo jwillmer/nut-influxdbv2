@@ -9,10 +9,6 @@ from influxdb_client.client.write_api import SYNCHRONOUS
 import json
 
 
-# InfluxDB details
-host = os.getenv('INFLUXDB_HOST', '127.0.0.1')
-port = os.getenv('INFLUXDB_PORT', 8086)
-
 # NUT related variables
 nut_host = os.getenv('NUT_HOST', '127.0.0.1')
 nut_port = os.getenv('NUT_PORT', '3493')

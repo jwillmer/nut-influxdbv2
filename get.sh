@@ -3,8 +3,8 @@
 while :
 do
   date
-  echo "--- Start Call API"
-  python3 netatmo2influxdb.py
+  echo "Start Loop"
+  python3 nut-influxdb-exporter.py
   RET=$?
   if [ ${RET} -ne 0 ];
   then

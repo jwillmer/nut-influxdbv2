@@ -8,14 +8,28 @@ Updated for InfluxDBv2. Changed outputted values. Poll  multiple NUT servers.
 
 ## Roadmap
 
+## NUT Servers Accessories
+- Get IP address of NUT servers
+- Create list of IPs: ['IP1','IP2', ...]
+- Create list of hostnames (mapped to hosts in Influx): ['Host1','Host2', ...]
+
+## InfluxDBv2 Setup
+Setup InfluxDBv2, create bucket and create a token with write permissions for bucket.
+
+## Docker Setup
+```
+$ docker run -d \
+ -e HOMEKIT_IP_LIST="['<IP1>','<IP2>',...]" \
+
+
 ## How to run
 ```
 $ docker run -d \
- -e NUT_HOST_LIST="IP1, IP2, ... " \
+ -e NUT_HOST_LIST="['<IP1>','<IP2>',...]" \
  -e NUT_PORT="<NUT Port>" \
  -e NUT_PASSWORD="<NUT password>" \
  -e NUT_USERNAME="<NUT username>" \
- -e NUT_HOSTNAME_LIST="Hostname1, Hostname2, ..." \
+ -e NUT_HOSTNAME_LIST="['<Host1>','<Host2>',...]" \
  -e NUT_UPSNAME="<NUT UPS Name>" \
  -e INFLUXDB2_HOST="<INFLUXDBv2 SERVER>" \
  -e INFLUXDB2_PORT="8086" \

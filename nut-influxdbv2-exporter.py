@@ -51,8 +51,8 @@ else:
 hostname = socket.gethostname()
 host_ip = socket.gethostbyname(hostname)
 if debug:
-    print ( " hostname: "+hostname )
-    print ( "       IP: "+host_ip )
+    print ( " docker name: "+hostname )
+    print ( "   docker IP: "+host_ip )
 
     
 # setup InfluxDB

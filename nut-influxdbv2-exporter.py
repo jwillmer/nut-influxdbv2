@@ -10,12 +10,16 @@ import json
 
 
 # NUT related variables
-nut_host = os.getenv('NUT_HOST', '127.0.0.1')
 nut_port = os.getenv('NUT_PORT', '3493')
 nut_password = os.getenv('NUT_PASSWORD', 'secret')
 nut_username = os.getenv('NUT_USERNAME', 'monuser')
-nut_hostname = os.getenv('NUT_HOSTNAME', 'localhost')
 nut_upsname = os.getenv('NUT_UPSNAME', 'ups')
+
+nut_ip_list_str = os.getenv('NUT_IP_LIST', '')
+nut_host_list_str = os.getenv('NUT_HOST_LIST', '')
+nut_ip_list=eval(nut_ip_list_str)
+nut_host_list=eval(nut_host_list_str)
+
 
 # Other vars
 debug_str = os.getenv('DEBUG', 'false')
@@ -60,14 +64,6 @@ if client and debug:
 write_api = client.write_api(write_options=SYNCHRONOUS)
 
 
-# setup NUT
-if debug:
-    print("NUT_USER: ", nut_username)
-    print("NUT_PASS: ", nut_password)
-ups_client = PyNUTClient(host=nut_host, port=nut_port, login=nut_username, password=nut_password, debug=nut_debug) 
-if ups_client and debug:
-    print("NUT: OK")
-
 # define convert
 def convert_to_type(s):
     try:
@@ -81,12 +77,12 @@ def convert_to_type(s):
             return s
 
 #define data object
-def construct_object(data, remove_keys):
+def construct_object(data, remove_keys, host):
     tags = {}
     fields = {}
 
     tags['source']="NUT"
-    tags['host']=nut_hostname
+    tags['host']=host
 
     for k, v in data.items():
         if k == "device.model":
@@ -109,30 +105,48 @@ def construct_object(data, remove_keys):
     return result
 
 
-# Main
-while True:
-    try:
-        ups_data = ups_client.list_vars(nut_upsname)
-        if debug:
-            print ("UPS: "+nut_upsname)
-            print (json.dumps(ups_data,indent=4))
-    except:
-        tb = traceback.format_exc()
-        if debug:
-            print(tb)
-        print("Error getting data from NUT")
-        exit(1)
-    
-    json_body = construct_object(ups_data, remove_keys)
+if debug:
+    print("NUT_USER: ", nut_username)
+    print("NUT_PASS: ", nut_password)
 
-    try:
-        if debug:
-            print ("INFLUX: "+influxdb2_bucket)
-            print (json.dumps(json_body,indent=4))
-        write_api.write(bucket=influxdb2_bucket, org=influxdb2_org, record=[json_body])
-        break
-    except:
-        tb = traceback.format_exc()
+
+for ipaddress in nut_ip_list:
+    # setup NUT
+    if debug:
+        print(" IP: ", ipaddress)
+
+    ups_client = PyNUTClient(host=ipaddress, port=nut_port, login=nut_username, password=nut_password, debug=nut_debug) 
+    if ups_client and debug:
+        print("NUT: "+ipaddress+" OK")
+        
+    position = nut_ip_list.index(ipaddress)
+    host=nut_host_list[position]
+
+
+    # push to Influx
+    while True:
+        try:
+            ups_data = ups_client.list_vars(nut_upsname)
+            if debug:
+                print ("UPS: "+host" : "+nut_upsname)
+                print (json.dumps(ups_data,indent=4))
+        except:
+            tb = traceback.format_exc()
+            if debug:
+                print(tb)
+            print("Error getting data from NUT at "+ipaddress+" "+host)
+            exit(1)
+    
+        json_body = construct_object(ups_data, remove_keys, host)
+
+        try:
+            if debug:
+                print ("INFLUX: "+influxdb2_bucket)
+                print (json.dumps(json_body,indent=4))
+            write_api.write(bucket=influxdb2_bucket, org=influxdb2_org, record=[json_body])
+            break
+        except:
+            tb = traceback.format_exc()
         if debug:
             print(tb)
         print("Error connecting to InfluxDBv2")

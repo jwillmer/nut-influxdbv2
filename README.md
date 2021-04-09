@@ -19,13 +19,7 @@ Setup InfluxDBv2, create bucket and create a token with write permissions for bu
 ## Docker Setup
 ```
 $ docker run -d \
- -e HOMEKIT_IP_LIST="['<IP1>','<IP2>',...]" \
-
-
-## How to run
-```
-$ docker run -d \
- -e NUT_HOST_LIST="['<IP1>','<IP2>',...]" \
+ -e NUT_HOST_LIST="['IP1','IP2',...]" \
  -e NUT_PORT="<NUT Port>" \
  -e NUT_PASSWORD="<NUT password>" \
  -e NUT_USERNAME="<NUT username>" \

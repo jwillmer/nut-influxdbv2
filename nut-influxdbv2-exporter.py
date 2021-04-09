@@ -6,7 +6,7 @@ import traceback
 from nut2 import PyNUTClient
 from influxdb_client import InfluxDBClient, Point, WriteOptions
 from influxdb_client.client.write_api import SYNCHRONOUS
-import json
+import json, socket
 
 
 # NUT related variables
@@ -37,7 +37,7 @@ if debug_str.lower() == "true":
     nut_debug="true"
 else:
     debug = False
-    nut_debug="false"
+    nut_debug=""
 
 
 # report debug status
@@ -47,6 +47,14 @@ else:
     print ( " debug: FALSE" )
 
 
+# get IP address
+hostname = socket.gethostname()
+host_ip = socket.gethostbyname(hostname)
+if debug:
+    print ( " hostname: "+hostname )
+    print ( "       IP: "+host_ip )
+
+    
 # setup InfluxDB
 influxdb2_url="http://" + influxdb2_host + ":" + str(influxdb2_port)
 if debug:

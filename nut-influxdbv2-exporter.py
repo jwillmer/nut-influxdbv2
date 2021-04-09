@@ -120,9 +120,10 @@ def construct_object(data, remove_keys):
 # Main
 while True:
     try:
-        ups_data = ups_client.list_vars(nut_upsname)
         if debug:
             print ("UPS: "+nut_upsname)
+        ups_data = ups_client.list_vars(nut_upsname)
+        if debug:
             print (json.dumps(ups_data,indent=4))
     except:
         tb = traceback.format_exc()

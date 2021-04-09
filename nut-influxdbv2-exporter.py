@@ -16,7 +16,7 @@ nut_password = os.getenv('NUT_PASSWORD', 'secret')
 nut_username = os.getenv('NUT_USERNAME', 'monuser')
 nut_hostname = os.getenv('NUT_HOSTNAME', 'localhost')
 nut_upsname = os.getenv('NUT_UPSNAME', 'ups')
-nut_watts = os.getenv('NUT_WATTS', '')
+nut_watts = os.getenv('NUT_WATTS', '700')
 
 # Other vars
 debug_str = os.getenv('DEBUG', 'false')
@@ -105,8 +105,8 @@ def construct_object(data, remove_keys):
             else:
                 fields[k] = convert_to_type(v)
 
-    watts = float(nut_watts) if nut_watts else float(fields['ups.realpower.nominal'])
-    fields['ups.watts'] = watts * 0.01 * fields['ups.load']
+    #watts = float(nut_watts) if nut_watts else float(fields['ups.realpower.nominal'])
+    #fields['ups.watts'] = watts * 0.01 * fields['ups.load']
 
     result ={
             'measurement': 'ups',

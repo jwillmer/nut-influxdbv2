@@ -41,7 +41,7 @@ if debug_str.lower() == "true":
     nut_debug="true"
 else:
     debug = False
-    nut_debug="false"
+    nut_debug=""
 
 
 # report debug status
@@ -51,6 +51,13 @@ else:
     print ( " debug: FALSE" )
 
 
+# get IP address
+hostname = socket.gethostname()
+host_ip = socket.gethostbyname(hostname)
+if debug:
+    print ( " docker: "+host_ip )
+
+    
 # setup InfluxDB
 influxdb2_url="http://" + influxdb2_host + ":" + str(influxdb2_port)
 if debug:
@@ -112,23 +119,23 @@ if debug:
 
 for ipaddress in nut_ip_list:
     # setup NUT
+    position = nut_ip_list.index(ipaddress)
+    host=nut_host_list[position]
     if debug:
-        print(" IP: ", ipaddress)
+        print("  IP: ", ipaddress)
+        print("host: ", host)
 
     ups_client = PyNUTClient(host=ipaddress, port=nut_port, login=nut_username, password=nut_password, debug=nut_debug) 
     if ups_client and debug:
-        print("NUT: "+ipaddress+" OK")
+        print("NUT: OK")
         
-    position = nut_ip_list.index(ipaddress)
-    host=nut_host_list[position]
-
-
+        
     # push to Influx
     while True:
         try:
             ups_data = ups_client.list_vars(nut_upsname)
             if debug:
-                print ("UPS: "+host" : "+nut_upsname)
+                print ("UPS: "+nut_upsname"@"+host)
                 print (json.dumps(ups_data,indent=4))
         except:
             tb = traceback.format_exc()

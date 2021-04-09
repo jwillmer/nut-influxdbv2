@@ -31,7 +31,7 @@ $ docker run -d \
  -e INFLUXDB2_TOKEN="" \
  -e INFLUXDB2_BUCKET="" \
  --name "nut-influxdbv2" \
-dbsqp/nut-influxdbv2:latest
+dbsqp/nut-influxdbv2:dev
 ```
 
 ## Debug

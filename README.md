@@ -21,10 +21,10 @@ Setup InfluxDBv2, create bucket and create a token with write permissions for bu
 $ docker run -d \
  -e NUT_IP_LIST="['IP1','IP2',...]" \
  -e NUT_HOST_LIST="['<Host1>','<Host2>',...]" \
- -e NUT_PORT="<NUT Port>" \
+ -e NUT_PORT="3493" \
  -e NUT_PASSWORD="<NUT password>" \
  -e NUT_USERNAME="<NUT username>" \
- -e NUT_UPSNAME="<NUT UPS Name>" \
+ -e NUT_UPSNAME="ups" \
  -e INFLUXDB2_HOST="<INFLUXDBv2 SERVER>" \
  -e INFLUXDB2_PORT="8086" \
  -e INFLUXDB2_ORG="" \

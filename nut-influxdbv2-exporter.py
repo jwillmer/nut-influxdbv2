@@ -25,7 +25,7 @@ remove_keys = ['battery.type','device.serial','ups.realpower.nominal','ups.vendo
 # InfluxDBv2 variables
 influxdb2_host=os.getenv('INFLUXDB2_HOST', "localhost")
 influxdb2_port=int(os.getenv('INFLUXDB2_PORT', "8086"))
-influxdb2_org=os.getenv('INFLUXDB2_ORG', "org")
+influxdb2_org=os.getenv('INFLUXDB2_ORG', "Home")
 influxdb2_token=os.getenv('INFLUXDB2_TOKEN', "token")
 influxdb2_bucket=os.getenv('INFLUXDB2_BUCKET', "DEV")
 
@@ -98,7 +98,7 @@ def construct_object(data, remove_keys):
 
     for k, v in data.items():
         if k == "device.model":
-            tags["module"]=v
+            tags["hardware"]=v
         else:
             if k in remove_keys:
                 continue

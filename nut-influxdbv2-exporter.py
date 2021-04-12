@@ -70,6 +70,7 @@ if client and debug:
 write_api = client.write_api(write_options=SYNCHRONOUS)
 
 
+
 # define convert
 def convert_to_type(s):
     try:
@@ -100,7 +101,7 @@ def construct_object(data, remove_keys, host):
                 fields[k] = convert_to_type(v)
 
     #watts = float(nut_watts) if nut_watts else float(fields['ups.realpower.nominal'])
-    #fields['ups.power'] = watts * 0.01 * fields['ups.load']
+    #fields['ups.watts'] = watts * 0.01 * fields['ups.load']
 
     result ={
             'measurement': 'ups',
@@ -144,6 +145,7 @@ for host in nut_host_list:
                 print(tb)
             print("Error getting data from NUT at "+ipaddress+" "+host)
             exit(1)
+
     
         json_body = construct_object(ups_data, remove_keys, host)
 

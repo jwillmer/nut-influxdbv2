@@ -93,7 +93,7 @@ def construct_object(data, remove_keys, host):
 
     for k, v in data.items():
         if k == "ups.serial":
-            tags["hardware"]=v
+            tags["hardware"]=':'.join(v[i:i+2] for i in range(0,12,2))
         elif k == "device.model":
             tags["model"]=v
         else:

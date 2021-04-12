@@ -10,13 +10,15 @@ import json, socket
 
 
 # NUT related variables
-nut_host = os.getenv('NUT_HOST', '127.0.0.1')
 nut_port = os.getenv('NUT_PORT', '3493')
 nut_password = os.getenv('NUT_PASSWORD', 'secret')
 nut_username = os.getenv('NUT_USERNAME', 'monuser')
-nut_hostname = os.getenv('NUT_HOSTNAME', 'localhost')
 nut_upsname = os.getenv('NUT_UPSNAME', 'ups')
-nut_watts = os.getenv('NUT_WATTS', '700')
+nut_ip_list_str = os.getenv('NUT_IP_LIST', '[]')
+nut_host_list_str = os.getenv('NUT_HOST_LIST', '[]')
+nut_ip_list=eval(nut_ip_list_str)
+nut_host_list=eval(nut_host_list_str)
+
 
 # Other vars
 debug_str = os.getenv('DEBUG', 'false')
@@ -52,7 +54,7 @@ else:
 hostname = socket.gethostname()
 host_ip = socket.gethostbyname(hostname)
 if debug:
-    print ( " docker: "+host_ip )
+    print ( "docker: "+host_ip )
 
     
 # setup InfluxDB
@@ -63,18 +65,11 @@ if debug:
 
 client = InfluxDBClient(url=influxdb2_url, token=influxdb2_token, org=influxdb2_org)
 if client and debug:
-    print("Influx: OK")
+    print("influx: online")
 
 write_api = client.write_api(write_options=SYNCHRONOUS)
 
 
-# setup NUT
-if debug:
-    print("username: ", nut_username)
-    print("password: ", nut_password)
-ups_client = PyNUTClient(host=nut_host, port=nut_port, login=nut_username, password=nut_password, debug=nut_debug) 
-if ups_client and debug:
-    print("NUT: OK")
 
 # define convert
 def convert_to_type(s):
@@ -89,12 +84,12 @@ def convert_to_type(s):
             return s
 
 #define data object
-def construct_object(data, remove_keys):
+def construct_object(data, remove_keys, host):
     tags = {}
     fields = {}
 
     tags['source']="NUT"
-    tags['host']=nut_hostname
+    tags['host']=host
 
     for k, v in data.items():
         if k == "device.model":
@@ -117,35 +112,54 @@ def construct_object(data, remove_keys):
     return result
 
 
-# Main
-while True:
-    try:
-        if debug:
-            print ("UPS: "+nut_upsname)
-        ups_data = ups_client.list_vars(nut_upsname)
-        if debug:
-            print (json.dumps(ups_data,indent=4))
-    except:
-        tb = traceback.format_exc()
-        if debug:
-            print(tb)
-        print("Error getting data from NUT")
-        exit(1)
-    
-    json_body = construct_object(ups_data, remove_keys)
+if debug:
+    print("N user: "+nut_username)
+    print("N pass: "+nut_password)
+    print("IP list:")
+    print (json.dumps(nut_ip_list,indent=4))
+    print("Host list:")
+    print (json.dumps(nut_host_list,indent=4))
 
-    try:
-        if debug:
-            print ("INFLUX: "+influxdb2_bucket)
-            print (json.dumps(json_body,indent=4))
-        write_api.write(bucket=influxdb2_bucket, org=influxdb2_org, record=[json_body])
-        break
-    except:
-        tb = traceback.format_exc()
+
+# loop over unique names (allows non unique ip for test)
+for host in nut_host_list:
+    position = nut_host_list.index(host)
+    ipaddress = nut_ip_list[position]
+    print("\nDO NUT: "+nut_upsname+"@"+ipaddress+" > "+host)
+
+    # setup NUT
+    ups_client = PyNUTClient(host=ipaddress, port=nut_port, login=nut_username, password=nut_password, debug=nut_debug) 
+    if ups_client and debug:
+        print("   NUT: online")
+
+    # push to Influx
+    while True:
+        try:
+            ups_data = ups_client.list_vars(nut_upsname)
+            if debug:
+                print ("RAW: "+nut_upsname+" @ "+ipaddress)
+                print (json.dumps(ups_data,indent=4))
+        except:
+            tb = traceback.format_exc()
+            if debug:
+                print(tb)
+            print("Error getting data from NUT at "+ipaddress+" "+host)
+            exit(1)
+
+    
+        json_body = construct_object(ups_data, remove_keys, host)
+
+        try:
+            if debug:
+                print ("INFLUX: "+influxdb2_bucket+" @ "+host)
+                print (json.dumps(json_body,indent=4))
+            write_api.write(bucket=influxdb2_bucket, org=influxdb2_org, record=[json_body])
+            break
+        except:
+            tb = traceback.format_exc()
         if debug:
             print(tb)
         print("Error connecting to InfluxDBv2")
         exit(2)
 
     time.sleep( 5 )
-

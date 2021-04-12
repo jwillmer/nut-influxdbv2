@@ -92,7 +92,7 @@ def construct_object(data, remove_keys, host):
 
     for k, v in data.items():
         if k == "device.model":
-            tags["module"]=v
+            tags["hardware"]=v
         else:
             if k in remove_keys:
                 continue

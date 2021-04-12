@@ -92,8 +92,10 @@ def construct_object(data, remove_keys, host):
     tags['host']=host
 
     for k, v in data.items():
-        if k == "device.model":
+        if k == "ups.serial":
             tags["hardware"]=v
+        elif k == "device.model":
+            tags["model"]=v
         else:
             if k in remove_keys:
                 continue

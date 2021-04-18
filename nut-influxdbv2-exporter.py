@@ -105,7 +105,7 @@ def construct_object(data, remove_keys, host):
             w = v.split("FW:", 2)
             if v == "InternalBattery-0":
                 tags["model"]="InternalBattery"
-            else
+            else:
                 tags["model"]=w[0].strip()
         else:
             if k in remove_keys:

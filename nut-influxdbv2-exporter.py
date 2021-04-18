@@ -99,7 +99,8 @@ def construct_object(data, remove_keys, host):
 
     for k, v in data.items():
         if k == "ups.serial":
-            tags["hardware"]=':'.join(v[i:i+2] for i in range(0,12,2))
+            if v:
+                tags["hardware"]=':'.join(v[i:i+2] for i in range(0,12,2))
         elif k == "device.model":
             w = v.split("FW:", 2)
             if v == "InternalBattery-0":

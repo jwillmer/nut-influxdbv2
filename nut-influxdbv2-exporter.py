@@ -101,7 +101,8 @@ def construct_object(data, remove_keys, host):
         if k == "ups.serial":
             tags["hardware"]=':'.join(v[i:i+2] for i in range(0,12,2))
         elif k == "device.model":
-            tags["model"]=v.strip()
+            w = v.split("FW:", 2)
+            tags["model"]=w[0].strip()
         else:
             if k in remove_keys:
                 continue

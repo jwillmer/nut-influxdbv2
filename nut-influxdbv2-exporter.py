@@ -22,7 +22,13 @@ nut_host_list=eval(nut_host_list_str)
 
 # Other vars
 debug_str = os.getenv('DEBUG', 'false')
-remove_keys = ['battery.type','device.serial','ups.realpower.nominal','ups.vendorid','ups.serial','ups.productid','ups.model','ups.mfr','driver.version.data','driver.version','device.type','device.mfr', 'driver.version.internal', 'driver.version.usb', 'ups.beeper.status', 'driver.name', 'battery.mfr.date','ups.firmware', 'ups.firmware.aux','ups.mfr.date', 'battery.date', 'battery.charge.low', 'battery.charge.warning', 'battery.runtime.low','driver.parameter.pollfreq','driver.parameter.pollinterval','driver.parameter.port','input.sensitivity','input.transfer.high','input.transfer.low','ups.delay.shutdown','ups.test.result','ups.timer.reboot','ups.timer.shutdown']
+remove_keys = ['battery.type','device.serial','ups.realpower.nominal','ups.vendorid','ups.serial','ups.productid',
+               'ups.model','ups.mfr','driver.version.data','driver.version','device.type','device.mfr',
+               'driver.version.internal', 'driver.version.usb', 'ups.beeper.status', 'driver.name', 'battery.mfr.date',
+               'ups.firmware', 'ups.firmware.aux','ups.mfr.date', 'battery.date', 'battery.charge.low',
+               'battery.charge.warning', 'battery.runtime.low','driver.parameter.pollfreq','driver.parameter.pollinterval',
+               'driver.parameter.port','input.sensitivity','input.transfer.high','input.transfer.low','ups.delay.shutdown',
+               'ups.test.result','ups.timer.reboot','ups.timer.shutdown','driver.parameter.synchronous']
 
 # InfluxDBv2 variables
 influxdb2_host=os.getenv('INFLUXDB2_HOST', "localhost")
@@ -93,9 +99,14 @@ def construct_object(data, remove_keys, host):
 
     for k, v in data.items():
         if k == "ups.serial":
-            tags["hardware"]=':'.join(v[i:i+2] for i in range(0,12,2))
+            if v:
+                tags["hardware"]=':'.join(v[i:i+2] for i in range(0,12,2))
         elif k == "device.model":
-            tags["model"]=v.strip()
+            w = v.split("FW:", 2)
+            if v == "InternalBattery-0":
+                tags["model"]="InternalBattery"
+            else:
+                tags["model"]=w[0].strip()
         else:
             if k in remove_keys:
                 continue

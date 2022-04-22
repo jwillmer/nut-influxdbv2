@@ -1,5 +1,5 @@
 # nut-influxdbv2
-This is a docker container that pulls data from a NUT server and pushed to InfluxDB. Based on work of mihai-cindea [https://github.com/mihai-cindea/nut-influxdb-exporter)
+Docker image to pulls data from a NUT server and push it to an InfluxDB bucket. Based on work of mihai-cindea [https://github.com/mihai-cindea/nut-influxdb-exporter)
 
 ## Changes
 Updated for InfluxDBv2. Changed outputted values. Poll multiple NUT servers. Poll internal batteries on MacOS using the NUT macosx-ups driver.
@@ -15,6 +15,7 @@ Updated for InfluxDBv2. Changed outputted values. Poll multiple NUT servers. Pol
 Setup InfluxDBv2, create bucket and create a token with write permissions for bucket.
 
 ## Docker Setup
+https://hub.docker.com/repository/docker/dbsqp/nut-influxdbv2
 ```
 $ docker run -d \
  -e NUT_IP_LIST="['IP1','IP2',...]" \

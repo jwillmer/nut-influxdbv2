@@ -85,7 +85,7 @@ if debug:
     print ( "influx: "+influxdb2_url )
     print ( "bucket: "+influxdb2_bucket )
 
-client = InfluxDBClient(url=influxdb2_url, token=influxdb2_token, org=influxdb2_org, ssl=influxdb2_ssl, verify_ssl=influxdb2_ssl_verify)
+client = InfluxDBClient(url=influxdb2_url, token=influxdb2_token, org=influxdb2_org, verify_ssl=influxdb2_ssl_verify)
 
 if client and debug:
     print("influx: online")

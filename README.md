@@ -33,7 +33,12 @@ $ docker run -d \
 dbsqp/nut-influxdbv2:dev
 ```
 
-## Debug
+# Options
+```
+ -e INFLUXDB2_SSL="True"
+```
+
+# Debug
 To report out further details in the log enable debug:
 ```
  -e DEBUG="true"

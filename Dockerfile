@@ -4,7 +4,7 @@ ARG ARCH=
 FROM ubuntu:latest
 
 # Labels
-LABEL MAINTAINER="https://github.com/dbsqp/"
+LABEL MAINTAINER="https://github.com/jwillmer/"
 
 # Setup external package-sources
 RUN apt-get update && apt-get install -y \
@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y \
     python3-setuptools \
     python3-pip \
     python3-virtualenv \
+    nano \
     --no-install-recommends && \
     rm -rf /var/lib/apt/lists/* 
 

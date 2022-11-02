@@ -1,46 +1,26 @@
 # nut-influxdbv2
-Docker image to pulls data from a NUT server and push it to an InfluxDB bucket. Based on work of mihai-cindea [https://github.com/mihai-cindea/nut-influxdb-exporter)
+Docker image to pulls data from a NUT server and push it to an InfluxDB bucket. Based on work of [mihai-cindea](https://github.com/mihai-cindea/nut-influxdb-exporter) and [dbsqp](https://github.com/dbsqp/nut-influxdbv2).
 
-## Changes
-Updated for InfluxDBv2. Changed outputted values. Poll multiple NUT servers. Poll internal batteries on MacOS using the NUT macosx-ups driver.
-
-## Roadmap
-
-## NUT Servers
-- Get IP address of NUT servers
-- Create list of IPs: ['IP1','IP2', ...]
-- Create list of hostnames (mapped to hosts in Influx): ['Host1','Host2', ...]
-
-## InfluxDBv2 Setup
-Setup InfluxDBv2, create bucket and create a token with write permissions for bucket.
-
-## Docker Setup
-https://hub.docker.com/repository/docker/dbsqp/nut-influxdbv2
+## Environment variables with default values
 ```
-$ docker run -d \
- -e NUT_IP_LIST="['IP1','IP2',...]" \
- -e NUT_HOST_LIST="['Host1','Host2',...]" \
- -e NUT_PORT="3493" \
- -e NUT_PASSWORD="secret" \
- -e NUT_USERNAME="monuser" \
- -e NUT_UPSNAME="ups" \
- -e INFLUXDB2_HOST="<INFLUXDBv2 SERVER>" \
- -e INFLUXDB2_PORT="8086" \
- -e INFLUXDB2_ORG="Home" \
- -e INFLUXDB2_TOKEN="" \
- -e INFLUXDB2_BUCKET="DEV" \
- --name "Nut-InfluxDBv2" \
-dbsqp/nut-influxdbv2:dev
-```
+# InfluxDB details
+INFLUXDB2_HOST: localhost
+INFLUXDB2_PORT: 8086
+INFLUXDB2_ORG: Home
+INFLUXDB2_TOKEN: ''
+INFLUXDB2_BUCKET: DEV
+INFLUXDB2_SSL: false
+INFLUXDB2_SSL_VERIFY: false
 
-# Options
-```
- -e INFLUXDB2_SSL="True" \
- -e INFLUXDB2_SSL_VERIFY="False"
-```
+# NUT related variables
+NUT_HOST: 127.0.0.1
+NUT_PORT: 3493
+NUT_PASSWORD: ''
+NUT_USERNAME: ''
+WATTS: ''
 
-# Debug
-To report out further details in the log enable debug:
-```
- -e DEBUG="true"
+# Other vars
+INTERVAL: 21
+UPS_NAME: UPS
+VERBOSE: false
 ```

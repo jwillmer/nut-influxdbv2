@@ -1,0 +1,122 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>nut-influxdbv2-exporter</Name>
+  <Repository>jwillmer/nut-influxdbv2</Repository>
+  <Registry>https://hub.docker.com/r/jwillmer/nut-influxdbv2</Registry>
+  <Network>bridge</Network>
+  <MyIP/>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support/>
+  <Project>https://github.com/jwillmer/nut-influxdbv2</Project>
+  <Overview/>
+  <Category>Tools:</Category>
+  <WebUI/>
+  <TemplateURL/>
+  <Icon>https://raw.githubusercontent.com/jwillmer/nut-influxdbv2/master/assets/nut.png</Icon>
+  <ExtraParams/>
+  <PostArgs/>
+  <CPUset/>
+  <DateInstalled/>
+  <DonateText/>
+  <DonateLink/>
+  <Description>Docker wrapper for a Python script to query NUT - Network UPS Tools via a Python script and then send the results to InfluxDBv2 for storage.</Description>
+  <Networking>
+    <Mode>bridge</Mode>
+    <Publish/>
+  </Networking>
+  <Data/>
+  <Environment>
+    <Variable>
+      <Value/>
+      <Name>INFLUXDB2_HOST</Name>
+      <Mode/>
+    </Variable>    
+    <Variable>
+      <Value/>
+      <Name>INFLUXDB2_PORT</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value/>
+      <Name>INFLUXDB2_ORG</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value/>
+      <Name>INFLUXDB2_TOKEN</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value/>
+      <Name>INFLUXDB2_BUCKET</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value/>
+      <Name>INFLUXDB2_SSL</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value/>
+      <Name>INFLUXDB2_SSL_VERIFY</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value/>
+      <Name>NUT_HOST</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value/>
+      <Name>NUT_PORT</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value/>
+      <Name>NUT_PASSWORD</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value/>
+      <Name>NUT_USERNAME</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value/>
+      <Name>WATTS</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value/>
+      <Name>INTERVAL</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value/>
+      <Name>UPS_NAME</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value/>
+      <Name>VERBOSE</Name>
+      <Mode/>
+    </Variable>
+  </Environment>
+  <Labels/>  
+  <Config Name="INFLUXDB2_HOST" Target="INFLUXDB2_HOST" Default="localhost" Mode="" Description="IP address of influxdb" Type="Variable" Display="always" Required="true" Mask="false"/>
+  <Config Name="INFLUXDB2_PORT" Target="INFLUXDB2_PORT" Default="8086" Mode="" Description="" Type="Variable" Display="advanced" Required="true" Mask="false"/>
+  <Config Name="INFLUXDB2_ORG" Target="INFLUXDB2_ORG" Default="Home" Mode="" Description="The organization name" Type="Variable" Display="always" Required="true" Mask="false"/>
+  <Config Name="INFLUXDB2_TOKEN" Target="INFLUXDB2_TOKEN" Default="" Mode="" Description="" Type="Variable" Display="always" Required="true" Mask="false"/>
+  <Config Name="INFLUXDB2_BUCKET" Target="INFLUXDB2_BUCKET" Default="" Mode="" Description="The bucket name" Type="Variable" Display="always" Required="true" Mask="false"/>
+  <Config Name="INFLUXDB2_SSL" Target="INFLUXDB2_SSL" Default="false" Mode="" Description="" Type="Variable" Display="always-hide" Required="false" Mask="false"/>
+  <Config Name="INFLUXDB2_SSL_VERIFY" Target="INFLUXDB2_SSL_VERIFY" Default="false" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false"/>  
+  <Config Name="NUT_HOST" Target="NUT_HOST" Default="127.0.0.1" Mode="" Description="" Type="Variable" Display="always" Required="true" Mask="false"/>
+  <Config Name="NUT_PORT" Target="NUT_PORT" Default="3493" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false"/>
+  <Config Name="NUT_PASSWORD" Target="NUT_PASSWORD" Default="" Mode="" Description="Password for NUT" Type="Variable" Display="always-hide" Required="false" Mask="false"/>
+  <Config Name="NUT_USERNAME" Target="NUT_USERNAME" Default="" Mode="" Description="Username for NUT" Type="Variable" Display="always-hide" Required="false" Mask="false"/>
+  <Config Name="WATTS" Target="WATTS" Default="" Mode="" Description="If your UPS doesn't have the nominal power metric (ups.realpower.nominal) then specify the rated watts so that the load percentage can be used to calculate the current watts" Type="Variable" Display="always" Required="false" Mask="false"/>  
+  <Config Name="INTERVAL" Target="INTERVAL" Default="21" Mode="" Description="Interval of NUT query" Type="Variable" Display="advanced-hide" Required="false" Mask="false"/>
+  <Config Name="UPS_NAME" Target="UPS_NAME" Default="unraid" Mode="" Description="UPS name that is queried by the NUT client" Type="Variable" Display="always" Required="true" Mask="false"/>
+  <Config Name="VERBOSE" Target="VERBOSE" Default="false" Mode="" Description="Verbose logging" Type="Variable" Display="advanced" Required="false" Mask="false"/>
+</Container>

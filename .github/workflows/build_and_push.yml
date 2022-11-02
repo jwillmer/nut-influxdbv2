@@ -1,7 +1,8 @@
 on:
+  workflow_dispatch:
   push:
     branches:
-      - masster
+      - master
   pull_request:
     branches:
       - master

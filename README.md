@@ -6,7 +6,7 @@ Docker image to pulls data from a NUT server and push it to an InfluxDB bucket. 
 The docker image is available on https://hub.docker.com/r/jwillmer/nut-influxdbv2
 
 ## Environment variables with default values
-Only setting `INFLUXDB2_TOKEN` is required if the default values are sufficient.
+Only setting `INFLUXDB2_TOKEN` is required if the default values are sufficient and your UPS outputs `ups.realpower.nominal`.
 
 | Variable Name        | Default Value           | Required  | Note |
 | -------------------- | ----------------------- | --------- | ---- |
@@ -32,7 +32,7 @@ Only setting `INFLUXDB2_TOKEN` is required if the default values are sufficient.
 The source code is available on https://github.com/jwillmer/nut-influxdbv2
 
 ## Unraid
-This image is referenced in the Unraid community store. The template for the image can be found in the [template repository](https://github.com/jwillmer/unraid-templates). Regular users don't have to care about the template, the reference is only interesting to developers.
+This image is referenced in the Unraid community store. The support thread can be found at [forums.unraid.net/topic/130458-support-nut-influxdbv2-exporter](https://forums.unraid.net/topic/130458-support-nut-influxdbv2-exporter) and the template for the image can be found in the [template repository](https://github.com/jwillmer/unraid-templates). Regular users don't have to care about the template, the reference is only interesting to developers.
 
 ## Grafana
 A good dashboard for the collected data can be found with the dashboard id [10914](https://grafana.com/grafana/dashboards/10914-unraid-nut-ups-dashboard-tr/).

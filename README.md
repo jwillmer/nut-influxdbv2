@@ -35,5 +35,5 @@ The source code is available on https://github.com/jwillmer/nut-influxdbv2
 This image is referenced in the Unraid community store. The support thread can be found at [forums.unraid.net/topic/130458-support-nut-influxdbv2-exporter](https://forums.unraid.net/topic/130458-support-nut-influxdbv2-exporter) and the template for the image can be found in the [template repository](https://github.com/jwillmer/unraid-templates). Regular users don't have to care about the template, the reference is only interesting to developers.
 
 ## Grafana
-A good dashboard for the collected data can be found with the dashboard id [10914](https://grafana.com/grafana/dashboards/10914-unraid-nut-ups-dashboard-tr/).
-![grafana dasboard 10914](assets/grafana_dashboard.jpg)
+A good dashboard for the collected data can be found with the dashboard id [7233](https://grafana.com/grafana/dashboards/7233-unraid-system-dashboard-v2/).
+![grafana dasboard 7233](assets/grafana_dashboard.jpg)
